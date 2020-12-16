@@ -1,53 +1,58 @@
 package dao;
 
-import models.Events;
+import models.User;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oEventsDao implements EventsDao {
+public class Sql20UserDao implements UserDao {
     private final Sql2o sql2o;
-    public Sql2oEventsDao(Sql2o sql2o) {
+    public Sql20UserDao(Sql2o sql2o) {
         this.sql2o=sql2o;
     }
+
     @Override
-    public void add(Events events) {
-        String sql = "INSERT INTO news (title, description, categoriesId) VALUES (:title, :content, :departmentId)";
+    public void add(User user) {
+        String sql = "INSERT INTO users (name, bio, profession, interests, categoriesId) VALUES (:name, :bio, :position, :role, :departmentId)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
-                    .bind(events)
+                    .bind(user)
                     .executeUpdate()
                     .getKey();
-            events.setId(id);
+            user.setId(id);
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }
 
     @Override
-    public List<Events> getAll() {
-        String sql = "SELECT * FROM events";
+    public List<User> getAll() {
+        String sql = "SELECT * FROM users";
         try(Connection con = sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(Events.class);
-        }    }
+            return con.createQuery(sql).executeAndFetch(User.class);
+        }
+    }
 
     @Override
-    public Events findById(int id) {
+    public User findById(int id) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM events WHERE id = :id")
+            return con.createQuery("SELECT * FROM users WHERE id = :id")
                     .addParameter("id", id)
-                    .executeAndFetchFirst(Events.class);
-        }    }
+                    .executeAndFetchFirst(User.class);
+        }
+    }
 
     @Override
-    public void update(int id, String title, String description, int categoriesId) {
-        String sql = "UPDATE news SET (title, description, categoriesId) = (:title, :description, :categoriesId) WHERE id=:id"; //CHECK!!!
+    public void update(int id, String name, String bio,String profession,String interests,int categoriesId) {
+        String sql = "UPDATE users SET (name, bio, profession, interests, categoriesId) = (:name, :bio, :position, :,interests :categoriesId) WHERE id=:id"; //CHECK!!!
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
-                    .addParameter("name", title)
-                    .addParameter("bio", description)
+                    .addParameter("name", name)
+                    .addParameter("bio", bio)
+                    .addParameter("profession", profession)
+                    .addParameter("interests", interests)
                     .addParameter("categoriesId", categoriesId)
                     .addParameter("id", id)
                     .executeUpdate();
@@ -58,7 +63,7 @@ public class Sql2oEventsDao implements EventsDao {
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE from events WHERE id = :id";
+        String sql = "DELETE from users WHERE id = :id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -70,7 +75,7 @@ public class Sql2oEventsDao implements EventsDao {
 
     @Override
     public void clearAll() {
-        String sql = "DELETE from events";
+        String sql = "DELETE from users";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql).executeUpdate();
         } catch (Sql2oException ex) {
