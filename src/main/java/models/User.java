@@ -10,7 +10,7 @@ public class User {
     private String interests;
     private Integer categoriesId;
 
-    public User(String name, String bio, String position, String role) {
+    public User(String name, String bio, String profession, String interests) {
         this.name = name;
         this.bio = bio;
         this.profession = profession;
@@ -18,7 +18,7 @@ public class User {
         this.categoriesId = null;
     }
 
-    public User(String name, String bio, String position, String role, int categoriesId) {
+    public User(String name, String bio, String profession, String interests, int categoriesId) {
         this.name = name;
         this.bio = bio;
         this.profession = profession;

@@ -65,7 +65,7 @@ public class Sql2oCategoriesDao implements CategoriesDao {
 
     @Override
     public void update(int id, String name, String description) {
-        String sql = "UPDATE users SET (name, bio) = (:name, :bio) WHERE id=:id";
+        String sql = "UPDATE users SET (name, description) = (:name, :description) WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", name)
