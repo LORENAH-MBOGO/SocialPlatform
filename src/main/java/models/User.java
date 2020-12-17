@@ -84,11 +84,4 @@ public class User {
         this.interests = interests;
     }
 
-    public Integer getCategoriesId() {
-        return categoriesId;
-    }
-
-    public void setCategoriesId(int categoriesId) {
-        this.categoriesId = categoriesId;
-    }
 }

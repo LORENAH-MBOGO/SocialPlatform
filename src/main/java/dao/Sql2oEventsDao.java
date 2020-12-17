@@ -14,7 +14,7 @@ public class Sql2oEventsDao implements EventsDao {
     }
     @Override
     public void add(Events events) {
-        String sql = "INSERT INTO news (title, description, categoriesId) VALUES (:title, :content, :departmentId)";
+        String sql = "INSERT INTO events (title, description, eventsId) VALUES (:title, :description, :eventsId)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(events)
@@ -42,13 +42,13 @@ public class Sql2oEventsDao implements EventsDao {
         }    }
 
     @Override
-    public void update(int id, String title, String description, int categoriesId) {
-        String sql = "UPDATE news SET (title, description, categoriesId) = (:title, :description, :categoriesId) WHERE id=:id"; //CHECK!!!
+    public void update(int id, String title, String description, int eventsId) {
+        String sql = "UPDATE news SET (title, description, eventsId) = (:title, :description, :eventsId) WHERE id=:id"; //CHECK!!!
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", title)
                     .addParameter("bio", description)
-                    .addParameter("categoriesId", categoriesId)
+                    .addParameter("eventsid", eventsId)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {

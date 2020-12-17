@@ -15,7 +15,7 @@ public class Sql20UserDao implements UserDao {
 
     @Override
     public void add(User user) {
-        String sql = "INSERT INTO users (name, bio, profession, interests, categoriesId) VALUES (:name, :bio, :position, :role, :departmentId)";
+        String sql = "INSERT INTO users (name, bio, profession, interests) VALUES (:name, :bio, :profession, :interests)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(user)
@@ -44,16 +44,17 @@ public class Sql20UserDao implements UserDao {
         }
     }
 
+
+
     @Override
-    public void update(int id, String name, String bio,String profession,String interests,int categoriesId) {
-        String sql = "UPDATE users SET (name, bio, profession, interests, categoriesId) = (:name, :bio, :position, :,interests :categoriesId) WHERE id=:id"; //CHECK!!!
+    public void update(int id, String name, String bio,String profession,String interests) {
+        String sql = "UPDATE users SET (name, bio, profession, interests) = (:name, :bio, :position, :,interests) WHERE id=:id"; //CHECK!!!
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", name)
                     .addParameter("bio", bio)
                     .addParameter("profession", profession)
                     .addParameter("interests", interests)
-                    .addParameter("categoriesId", categoriesId)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {

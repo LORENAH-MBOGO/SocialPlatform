@@ -6,7 +6,7 @@ public class Events {
     private int id;
     private String title;
     private String description;
-    private Integer categoriesId;
+    private Integer eventsId;
 
     @Override
     public boolean equals(Object o) {
@@ -14,14 +14,14 @@ public class Events {
         if (o == null || getClass() != o.getClass()) return false;
         Events events = (Events) o;
         return id == events.id &&
-                categoriesId == events.categoriesId &&
+                eventsId == events.eventsId &&
                 title.equals(events.title) &&
                 description.equals(events.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, categoriesId);
+        return Objects.hash(id, title, description, eventsId);
     }
 
     public int getId() {
@@ -48,12 +48,12 @@ public class Events {
         this.description = description;
     }
 
-    public Integer getCategoriesId() {
-        return categoriesId;
+    public Integer getEventsId() {
+        return eventsId;
     }
 
-    public void setCategoriesId(int categoriesId) {
-        this.categoriesId = categoriesId;
+    public void setEventsId(int eventsId) {
+        this.eventsId = eventsId;
     }
 
     public Events(String title, String description) {
@@ -61,9 +61,9 @@ public class Events {
         this.description = description;
     }
 
-    public Events(String title, String description, int categoriesId) {
+    public Events(String title, String description, int eventsId) {
         this.title = title;
         this.description = description;
-        this.categoriesId = categoriesId;
+        this.eventsId = eventsId;
     }
 }

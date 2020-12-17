@@ -65,13 +65,13 @@ public class Sql20UserDaoTest extends TestCase {
         assertEquals(0, userDao.getAll().size());
     }
 
-    @Test
-    public void clearAll() throws Exception {
-        User testUser = setupUser();
-        User otherUser = setupAltUser();
-        userDao.clearAll();
-        assertEquals(0, userDao.getAll().size());
-    }
+//    @Test
+//    public void clearAll() throws Exception {
+//        User testUser = setupUser();
+//        User otherUser = setupAltUser();
+//        userDao.clearAll();
+//        assertEquals(0, userDao.getAll().size());
+//    }
 
  //Helpers
     public User setupUser() {
